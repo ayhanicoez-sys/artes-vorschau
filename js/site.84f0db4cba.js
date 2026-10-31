@@ -122,7 +122,7 @@
   var PHONE = '41799506585', MAIL = 'info@artes-sportakademie.ch';
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   document.querySelectorAll('form[data-lead]').forEach(function(form){
-    var msg = form.querySelector('.form__msg'), done = form.querySelector('.lead-done');
+    var msg = form.querySelector('.form__msg'), done = form.querySelector('.lead-done'), sie = form.hasAttribute('data-sie');
     form.addEventListener('submit', function(e){
       e.preventDefault();
       if (form.website && form.website.value) return;
@@ -138,11 +138,11 @@
       if (bad.length) {
         bad.forEach(function(f){ f.setAttribute('aria-invalid', 'true'); });
         msg.className = 'form__msg is-err';
-        msg.textContent = 'Bitte fülle die markierten Felder aus und bestätige den Datenschutz.';
+        msg.textContent = sie ? 'Bitte füllen Sie die markierten Felder aus und bestätigen Sie den Datenschutz.' : 'Bitte fülle die markierten Felder aus und bestätige den Datenschutz.';
         bad[0].focus();
         return;
       }
-      var lines = ['Hallo ARTES Sportakademie, ich möchte ein gratis Probetraining machen.', ''];
+      var lines = [form.dataset.intro || 'Hallo ARTES Sportakademie, ich möchte ein gratis Probetraining machen.', ''];
       form.querySelectorAll('[data-label]').forEach(function(f){
         if ((f.type === 'radio' || f.type === 'checkbox') && !f.checked) return;
         var v = (f.value || '').trim();
@@ -150,12 +150,12 @@
       });
       var text = lines.join('\n');
       var wa = 'https://api.whatsapp.com/send?phone=' + PHONE + '&text=' + encodeURIComponent(text);
-      var mail = 'mailto:' + MAIL + '?subject=' + encodeURIComponent('Anfrage Probetraining') + '&body=' + encodeURIComponent(text);
+      var mail = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(form.dataset.subject || 'Anfrage Probetraining') + '&body=' + encodeURIComponent(text);
       msg.className = 'form__msg'; msg.textContent = '';
-      done.innerHTML = '<strong>Fast geschafft!</strong><p>Sende uns deine Anfrage jetzt mit einem Klick. Deine Angaben sind schon eingefügt.</p>'
+      done.innerHTML = '<strong>Fast geschafft!</strong><p>' + (sie ? 'Senden Sie uns Ihre Anfrage jetzt mit einem Klick. Ihre Angaben sind schon eingefügt.' : 'Sende uns deine Anfrage jetzt mit einem Klick. Deine Angaben sind schon eingefügt.') + '</p>'
         + '<div class="btns"><a class="btn btn--wa" target="_blank" rel="noopener" href="' + esc(wa) + '"><svg class="svgi" aria-hidden="true"><use href="#i-wa"/></svg>Per WhatsApp senden</a>'
         + '<a class="btn btn--line" href="' + esc(mail) + '">Per E-Mail senden</a></div>'
-        + '<p>Oder ruf uns an: +41 79 950 65 85</p>';
+        + '<p>' + (sie ? 'Oder rufen Sie uns an' : 'Oder ruf uns an') + ': +41 79 950 65 85</p>';
       done.hidden = false;
       var first = done.querySelector('a'); if (first) first.focus();
     });
