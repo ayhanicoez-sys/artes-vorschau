@@ -907,3 +907,15 @@ body.nav-open .wa-float{display:none}
 .article__intro .slogan{margin:0 0 6px;font:700 clamp(30px,3.6vw,44px)/1.02 var(--f-display);text-transform:uppercase;color:var(--ink)}
 .article__intro .slogan span{color:var(--red);white-space:nowrap}
 .article__intro .slogan__sub{margin:0 0 18px;font:600 15px/1.4 var(--f-label);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- Impressum / Datenschutz ---------- */
+.legal{background:var(--paper);padding-block:clamp(56px,7vw,96px)}
+.legal__in{max-width:780px}
+.legal h2{font:600 clamp(23px,2.3vw,29px)/1.15 var(--f-display);text-transform:uppercase;color:var(--ink);margin:42px 0 12px}
+.legal h2:first-child{margin-top:0}
+.legal p,.legal address{font-size:16.5px;line-height:1.7;color:var(--text);font-style:normal;margin:0}
+.legal p+p,.legal address+p{margin-top:12px}
+.legal address strong{color:var(--ink)}
+.legal a{color:var(--red);text-underline-offset:3px;overflow-wrap:anywhere}
+.legal .legal__lead{font-size:18px;color:var(--ink);margin-bottom:8px}
+.legal .legal__date{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:14.5px;color:var(--muted)}
