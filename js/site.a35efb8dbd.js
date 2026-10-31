@@ -55,10 +55,13 @@
     }, { passive: true });
   }
 
-  /* background videos: pause off-screen and for reduced motion */
+  /* background videos: a light portrait cut on phones, only the poster for reduced motion or data saver, paused off-screen */
+  var small = window.matchMedia('(max-width: 700px)').matches;
+  var saveData = navigator.connection && navigator.connection.saveData;
   ['heroVideo', 'bandVideo'].forEach(function(id){
     var v = document.getElementById(id); if (!v) return;
-    if (reduce) { v.removeAttribute('autoplay'); v.pause(); return; }
+    if (reduce || saveData) { v.removeAttribute('autoplay'); return; }
+    v.src = (small && v.dataset.srcSmall) || v.dataset.src;
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function(en){
         en.forEach(function(e){
