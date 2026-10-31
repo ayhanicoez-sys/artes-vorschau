@@ -902,3 +902,8 @@ body.nav-open .wa-float{display:none}
 .nf__links{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:0}
 .nf__links a{display:inline-block;padding:9px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.28);color:#fff;text-decoration:none;font:500 15px/1 var(--f-label);transition:background-color .2s,border-color .2s}
 .nf__links a:hover{background:var(--red);border-color:var(--red)}
+
+/* ---------- slogan at the start of a course text (Kindertraining) ---------- */
+.article__intro .slogan{margin:0 0 6px;font:700 clamp(30px,3.6vw,44px)/1.02 var(--f-display);text-transform:uppercase;color:var(--ink)}
+.article__intro .slogan span{color:var(--red);white-space:nowrap}
+.article__intro .slogan__sub{margin:0 0 18px;font:600 15px/1.4 var(--f-label);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
