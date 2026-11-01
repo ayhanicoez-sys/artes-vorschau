@@ -758,7 +758,7 @@ section{position:relative;scroll-margin-top:84px}
 .tmini__head h3{font-size:clamp(24px,2.4vw,32px);color:var(--ink)}
 .tmini__head a{color:var(--red);font-weight:600;text-decoration:none}
 .tmini__head a:hover{text-decoration:underline}
-.tmini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.4vw,30px)}
+.tmini{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2.4vw,30px)}
 .tmini .tcard{aspect-ratio:1/1.08}
 .tmini .tcard figcaption{padding:80px 16px 22px}
 
@@ -837,7 +837,7 @@ body.nav-open .wa-float{display:none}
   .qcard{max-width:560px}
   .trust__in{grid-template-columns:repeat(2,minmax(0,1fr))}
   .offers__grid{grid-template-columns:minmax(0,1fr)}
-  .tmini{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tmini{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:760px){
   .tmini{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding-bottom:6px;scrollbar-width:none}
@@ -1036,3 +1036,6 @@ body.nav-open .wa-float{display:none}
 .kombi__list span{color:var(--on-dark-soft);font-size:13.5px}
 @media (max-width:1080px){.kombi{grid-template-columns:minmax(0,1fr)}.kombi .btn{justify-self:start}}
 @media (max-width:560px){.kombi{padding:22px 18px}.kombi__list{grid-template-columns:minmax(0,1fr)}}
+
+/* several coaches on one course page */
+.coachbox+.coachbox{margin-top:14px}
