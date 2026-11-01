@@ -25,7 +25,7 @@
 <link rel="preload" href="fonts/f12.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/f17.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="css/site.034e3ee34a.css">
+<link rel="stylesheet" href="css/site.bdc2608854.css">
 </head>
 <body>
 
@@ -93,20 +93,17 @@
         <a class="hero-rating" href="https://www.google.com/maps/search/?api=1&amp;query=ARTES+Sportakademie+Rheintal+Rebstein" target="_blank" rel="noopener"><span class="stars" aria-hidden="true">★★★★★</span><span class="sr">5 von 5 Sternen</span><span><strong>5,0</strong> · über 80 Google-Bewertungen</span></a>
       </div>
       <div class="qcard" id="probetraining">
-        <form class="qform" id="quickForm" data-lead novalidate>
+        <form class="qform uform" id="quickForm" data-lead data-trial novalidate>
           <h2 class="qform__title">1 Woche gratis testen</h2>
           <p class="qform__lead">Hinterlass uns deine Angaben. Wir melden uns schnellstmöglich bei dir.</p>
-          <fieldset class="seg">
-            <legend class="sr">Für wen ist das Probetraining?</legend>
-            <input type="radio" name="fuer" id="q-fuer-ich" value="Für mich" data-label="Für" checked><label for="q-fuer-ich">Für mich</label>
-            <input type="radio" name="fuer" id="q-fuer-kind" value="Für mein Kind" data-label="Für"><label for="q-fuer-kind">Für mein Kind</label>
-          </fieldset>
           <div class="field"><label for="q-name">Vor- und Nachname</label><input id="q-name" name="name" autocomplete="name" required data-label="Name"></div>
+          <div class="field"><label for="q-mail">E-Mail</label><input id="q-mail" name="email" type="email" autocomplete="email" required data-label="E-Mail"></div>
           <div class="field"><label for="q-tel">Telefon oder WhatsApp</label><input id="q-tel" name="telefon" type="tel" autocomplete="tel" placeholder="+41 …" required data-label="Telefon"></div>
-          <div class="field" id="q-alter-wrap" hidden><label for="q-alter">Alter des Kindes</label><input id="q-alter" name="alter" inputmode="numeric" data-label="Alter des Kindes"></div>
-          <div class="field"><label for="q-kurs">Kurs</label>
-            <select id="q-kurs" name="kurs" required data-label="Kurs"><option value="">Bitte wählen</option><option>Wing Tzun / Selbstverteidigung</option><option>Boxen / Fitnessboxen</option><option>BJJ / Brazilian Jiu Jitsu</option><option>Kindertraining</option><option>Intensivtraining</option><option>Personaltraining</option><option>Gruppenangebot (Schule / Firma)</option><option>Weiss ich noch nicht</option></select>
-          </div>
+          <div class="field"><label for="q-kurs">Kurs</label><select id="q-kurs" name="kurs" required data-label="Kurs"><option value="">Bitte wählen</option><optgroup label="Kurse"><option>Wing Tzun / Selbstverteidigung</option><option>Boxen / Fitnessboxen</option><option>BJJ / Brazilian Jiu Jitsu (ab 14 J.)</option></optgroup><optgroup label="Kombipakete"><option>Kombi: Boxen + Wing Tzun</option><option>Kombi: Boxen + BJJ</option><option>Kombi: Wing Tzun + BJJ</option><option>Kombi: Boxen + Wing Tzun + BJJ</option></optgroup><optgroup label="Kinder"><option>Kindertraining Minis (5–7 J.)</option><option>Kindertraining Junioren (8–14 J.)</option></optgroup><optgroup label="Weitere"><option>Intensivtraining</option><option>Personaltraining</option><option>Allgemeine Frage</option></optgroup></select></div>
+          <details class="xtra"><summary><span class="xtra__ic" aria-hidden="true">+</span>Weitere Angaben <small>(freiwillig)</small></summary>
+            <div class="field"><label for="q-tag">Wunschtag</label><input id="q-tag" name="wunschtag" placeholder="z. B. Montag" data-label="Wunschtag"></div>
+            <div class="field"><label for="q-msg">Nachricht</label><textarea id="q-msg" name="nachricht" placeholder="Fragen oder Wünsche …" data-label="Nachricht"></textarea></div>
+          </details>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <label class="consent" for="q-ok"><input id="q-ok" name="einverstanden" type="checkbox" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verwendet werden (<a href="datenschutz.html" target="_blank" rel="noopener">Datenschutz</a>).</span></label>
           <button class="btn" type="submit">Probetraining anfragen <span class="arr"><span class="ms" aria-hidden="true">arrow_forward</span></span></button>
@@ -222,7 +219,7 @@
           <li><span class="ms" aria-hidden="true">check_circle</span>Einfach vorbeikommen: in bequemer Sportkleidung, am besten schon umgezogen. Trainiert wird barfuss</li>
         </ul>
         <div class="actions rv">
-          <a class="btn" href="#probetraining" data-angebot="Kindertraining" data-fuer="kind">Kind gratis anmelden <span class="arr"><span class="ms" aria-hidden="true">arrow_forward</span></span></a>
+          <a class="btn" href="#probetraining">Kind gratis anmelden <span class="arr"><span class="ms" aria-hidden="true">arrow_forward</span></span></a>
           <a class="btn btn--line" href="kids.html">Mehr zum Kindertraining <span class="arr"><span class="ms" aria-hidden="true">arrow_forward</span></span></a>
         </div>
       </div>
@@ -398,7 +395,7 @@
   <a class="wa-float" href="https://api.whatsapp.com/send?phone=41799506585&amp;text=Hallo%20ARTES%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20gratis%20Probetraining." target="_blank" rel="noopener" aria-label="Probetraining per WhatsApp anfragen"><svg class="svgi" aria-hidden="true"><use href="#i-wa"/></svg><span>Probetraining per WhatsApp</span></a>
 </footer>
 
-<script src="js/site.84f0db4cba.js"></script>
+<script src="js/site.61f838cccb.js"></script>
 
 </body>
 </html>

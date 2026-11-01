@@ -85,37 +85,20 @@
     });
   });
 
-  /* quick form: "Für mein Kind" shows the age field and suggests the kids course */
-  var kidRadio = document.getElementById('q-fuer-kind'), meRadio = document.getElementById('q-fuer-ich');
-  var ageWrap = document.getElementById('q-alter-wrap'), qKurs = document.getElementById('q-kurs');
-  function syncFor(){
-    if (!kidRadio) return;
-    ageWrap.hidden = !kidRadio.checked;
-    if (kidRadio.checked && !qKurs.value) qKurs.value = 'Kindertraining';
-    if (!kidRadio.checked && qKurs.value === 'Kindertraining') qKurs.value = '';
-  }
-  if (kidRadio) { kidRadio.addEventListener('change', syncFor); meRadio.addEventListener('change', syncFor); }
-
-  /* buttons that preselect who and which course the trial is for */
-  document.querySelectorAll('[data-angebot], [data-fuer]').forEach(function(a){
-    a.addEventListener('click', function(){
-      if (a.dataset.fuer && kidRadio) { (a.dataset.fuer === 'kind' ? kidRadio : meRadio).checked = true; syncFor(); }
-      var sel = qKurs || document.getElementById('f-offer');
-      if (a.dataset.angebot && sel) sel.value = a.dataset.angebot;
-    });
+  /* buttons that preselect the course in the trial form on the same page */
+  var trialKurs = document.querySelector('form[data-trial] select[name="kurs"]');
+  document.querySelectorAll('[data-angebot]').forEach(function(a){
+    a.addEventListener('click', function(){ if (trialKurs) trialKurs.value = a.dataset.angebot; });
   });
 
-  /* contact page: course preselected via kontakt.html#angebot-<kurs> */
-  var COURSE = { 'wing-tzun': 'Wing Tzun / Selbstverteidigung', 'boxen': 'Boxen / Fitnessboxen', 'bjj': 'BJJ / Brazilian Jiu Jitsu', 'kids': 'Kindertraining', 'intensivtraining': 'Intensivtraining', 'personaltraining': 'Personaltraining', 'gruppenangebote': 'Gruppenangebot (Schule / Firma)' };
-  var m = /^#angebot-(.+)$/.exec(window.location.hash), fOffer = document.getElementById('f-offer');
-  if (m && COURSE[m[1]] && fOffer) {
-    fOffer.value = COURSE[m[1]];
-    var tf = document.getElementById('trialForm');
-    if (tf) {
-      /* the form must not be mid-animation, otherwise it ends up under the header */
-      for (var a = tf; a; a = a.parentElement) if (a.classList && a.classList.contains('pre')) { a.style.transition = 'none'; a.classList.remove('pre'); void a.offsetHeight; a.style.transition = ''; }
-      requestAnimationFrame(function(){ tf.scrollIntoView({ block: 'start', behavior: 'instant' }); });
-    }
+  /* contact page: kontakt.html#angebot-<kurs> jumps to the form and preselects the course (kids and combos: the visitor chooses) */
+  var COURSE = { 'wing-tzun': 'Wing Tzun / Selbstverteidigung', 'boxen': 'Boxen / Fitnessboxen', 'bjj': 'BJJ / Brazilian Jiu Jitsu (ab 14 J.)', 'kids': '', 'kombi': '', 'intensivtraining': 'Intensivtraining', 'personaltraining': 'Personaltraining', 'gruppenangebote': '' };
+  var m = /^#angebot-(.+)$/.exec(window.location.hash), tf = document.getElementById('trialForm');
+  if (m && COURSE.hasOwnProperty(m[1]) && tf) {
+    if (COURSE[m[1]]) tf.querySelector('select[name="kurs"]').value = COURSE[m[1]];
+    /* the form must not be mid-animation, otherwise it ends up under the header */
+    for (var a = tf; a; a = a.parentElement) if (a.classList && a.classList.contains('pre')) { a.style.transition = 'none'; a.classList.remove('pre'); void a.offsetHeight; a.style.transition = ''; }
+    requestAnimationFrame(function(){ tf.scrollIntoView({ block: 'start', behavior: 'instant' }); });
   }
 
   /* trial forms: validate, then send the request via WhatsApp or e-mail (no data is stored on this website) */
@@ -142,7 +125,8 @@
         bad[0].focus();
         return;
       }
-      var lines = [form.dataset.intro || 'Hallo ARTES Sportakademie, ich möchte ein gratis Probetraining machen.', ''];
+      var kursSel = form.querySelector('select[name="kurs"]'), question = kursSel && kursSel.value === 'Allgemeine Frage';
+      var lines = [form.dataset.intro || (question ? 'Hallo ARTES Sportakademie, ich habe eine Frage.' : 'Hallo ARTES Sportakademie, ich möchte ein gratis Probetraining machen.'), ''];
       form.querySelectorAll('[data-label]').forEach(function(f){
         if ((f.type === 'radio' || f.type === 'checkbox') && !f.checked) return;
         var v = (f.value || '').trim();
@@ -150,7 +134,7 @@
       });
       var text = lines.join('\n');
       var wa = 'https://api.whatsapp.com/send?phone=' + PHONE + '&text=' + encodeURIComponent(text);
-      var mail = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(form.dataset.subject || 'Anfrage Probetraining') + '&body=' + encodeURIComponent(text);
+      var mail = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(form.dataset.subject || (question ? 'Allgemeine Frage' : 'Anfrage Probetraining')) + '&body=' + encodeURIComponent(text);
       msg.className = 'form__msg'; msg.textContent = '';
       done.innerHTML = '<strong>Fast geschafft!</strong><p>' + (sie ? 'Senden Sie uns Ihre Anfrage jetzt mit einem Klick. Ihre Angaben sind schon eingefügt.' : 'Sende uns deine Anfrage jetzt mit einem Klick. Deine Angaben sind schon eingefügt.') + '</p>'
         + '<div class="btns"><a class="btn btn--wa" target="_blank" rel="noopener" href="' + esc(wa) + '"><svg class="svgi" aria-hidden="true"><use href="#i-wa"/></svg>Per WhatsApp senden</a>'

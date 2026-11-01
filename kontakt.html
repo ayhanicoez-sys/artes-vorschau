@@ -25,7 +25,7 @@
 <link rel="preload" href="fonts/f12.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/f17.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="css/site.034e3ee34a.css">
+<link rel="stylesheet" href="css/site.bdc2608854.css">
 </head>
 <body>
 <!-- shared SVG: torn paper edge and brand icons -->
@@ -97,25 +97,23 @@
         </ul>
         <figure class="review rv"><span class="stars" aria-hidden="true">★★★★★</span><span class="sr">5 von 5 Sternen</span><blockquote>«Ayhan, unser Trainer und Sifu, hat ein einzigartiges Talent seine Schüler zu führen und zu motivieren. … Ich kann jedem nur empfehlen, es selbst auszuprobieren und zum Probetraining zu kommen.»</blockquote><figcaption><i aria-hidden="true">D</i><span><strong>Denzel W.</strong><span>Google-Bewertung</span></span></figcaption></figure>
       </div>
-      <form class="form rv" id="trialForm" data-lead novalidate>
-        <h3>Probetraining oder Frage senden</h3>
-        <div class="fgrid">
-          <div class="field"><label for="f-first">Vorname</label><input id="f-first" name="vorname" autocomplete="given-name" required data-label="Vorname"></div>
-          <div class="field"><label for="f-last">Nachname</label><input id="f-last" name="nachname" autocomplete="family-name" required data-label="Nachname"></div>
+      <form class="qform uform form rv" id="trialForm" data-lead data-trial novalidate>
+          <h3 class="qform__title">Probetraining oder Frage senden</h3>
+          <p class="qform__lead">Hinterlass uns deine Angaben. Wir melden uns schnellstmöglich bei dir.</p>
+          <div class="field"><label for="f-name">Vor- und Nachname</label><input id="f-name" name="name" autocomplete="name" required data-label="Name"></div>
           <div class="field"><label for="f-mail">E-Mail</label><input id="f-mail" name="email" type="email" autocomplete="email" required data-label="E-Mail"></div>
-          <div class="field"><label for="f-tel">Telefon oder WhatsApp</label><input id="f-tel" name="telefon" type="tel" autocomplete="tel" placeholder="+41 …" data-label="Telefon"></div>
-          <div class="field"><label for="f-offer">Angebot</label><select id="f-offer" name="angebot" required data-label="Angebot"><option value="">Bitte wählen</option><option>Wing Tzun / Selbstverteidigung</option><option>Boxen / Fitnessboxen</option><option>BJJ / Brazilian Jiu Jitsu</option><option>Kindertraining</option><option>Intensivtraining</option><option>Personaltraining</option><option>Gruppenangebot (Schule / Firma)</option><option>Weiss ich noch nicht</option></select></div>
-          <div class="field"><label for="f-date">Wunschdatum</label><input id="f-date" name="datum" type="date" data-label="Wunschdatum"></div>
-          <div class="field field--full"><label for="f-msg">Nachricht</label><textarea id="f-msg" name="nachricht" placeholder="Hinterlasse uns eine Nachricht …" data-label="Nachricht"></textarea></div>
+          <div class="field"><label for="f-tel">Telefon oder WhatsApp</label><input id="f-tel" name="telefon" type="tel" autocomplete="tel" placeholder="+41 …" required data-label="Telefon"></div>
+          <div class="field"><label for="f-kurs">Kurs</label><select id="f-kurs" name="kurs" required data-label="Kurs"><option value="">Bitte wählen</option><optgroup label="Kurse"><option>Wing Tzun / Selbstverteidigung</option><option>Boxen / Fitnessboxen</option><option>BJJ / Brazilian Jiu Jitsu (ab 14 J.)</option></optgroup><optgroup label="Kombipakete"><option>Kombi: Boxen + Wing Tzun</option><option>Kombi: Boxen + BJJ</option><option>Kombi: Wing Tzun + BJJ</option><option>Kombi: Boxen + Wing Tzun + BJJ</option></optgroup><optgroup label="Kinder"><option>Kindertraining Minis (5–7 J.)</option><option>Kindertraining Junioren (8–14 J.)</option></optgroup><optgroup label="Weitere"><option>Intensivtraining</option><option>Personaltraining</option><option>Allgemeine Frage</option></optgroup></select></div>
+          <details class="xtra"><summary><span class="xtra__ic" aria-hidden="true">+</span>Weitere Angaben <small>(freiwillig)</small></summary>
+            <div class="field"><label for="f-tag">Wunschtag</label><input id="f-tag" name="wunschtag" placeholder="z. B. Montag" data-label="Wunschtag"></div>
+            <div class="field"><label for="f-msg">Nachricht</label><textarea id="f-msg" name="nachricht" placeholder="Fragen oder Wünsche …" data-label="Nachricht"></textarea></div>
+          </details>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
           <label class="consent" for="f-ok"><input id="f-ok" name="einverstanden" type="checkbox" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verwendet werden (<a href="datenschutz.html" target="_blank" rel="noopener">Datenschutz</a>).</span></label>
-          <div class="form__end">
-            <button class="btn" type="submit">Anfrage senden <span class="arr"><span class="ms" aria-hidden="true">arrow_forward</span></span></button>
-            <p class="form__msg" role="status" aria-live="polite"></p>
-          </div>
-          <div class="lead-done field--full" hidden></div>
-        </div>
-      </form>
+          <button class="btn" type="submit">Probetraining anfragen <span class="arr"><span class="ms" aria-hidden="true">arrow_forward</span></span></button>
+          <p class="form__msg" role="status" aria-live="polite"></p>
+          <div class="lead-done" hidden></div>
+        </form>
     </div>
   </section>
 
@@ -221,6 +219,6 @@
   <a class="wa-float" href="https://api.whatsapp.com/send?phone=41799506585&amp;text=Hallo%20ARTES%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20gratis%20Probetraining." target="_blank" rel="noopener" aria-label="Probetraining per WhatsApp anfragen"><svg class="svgi" aria-hidden="true"><use href="#i-wa"/></svg><span>Probetraining per WhatsApp</span></a>
 </footer>
 
-<script src="js/site.84f0db4cba.js"></script>
+<script src="js/site.61f838cccb.js"></script>
 </body>
 </html>
