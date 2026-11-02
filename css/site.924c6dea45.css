@@ -1039,3 +1039,13 @@ body.nav-open .wa-float{display:none}
 
 /* several coaches on one course page */
 .coachbox+.coachbox{margin-top:14px}
+
+/* ---------- thank-you page ---------- */
+.thanks__in{max-width:760px;margin-inline:auto;text-align:center}
+.thanks__in[hidden]{display:none}
+.thanks .h2{color:var(--ink);margin-bottom:18px}
+.thanks__in>p{font-size:17.5px;line-height:1.65;color:var(--text);margin:0 0 12px}
+.thanks__in>p a{color:var(--red)}
+.thanks__tip{display:inline-flex;gap:10px;align-items:flex-start;text-align:left;margin-top:12px!important;padding:14px 18px;border-radius:12px;background:var(--mist);font-size:16px!important}
+.thanks__tip .ms{color:var(--red);font-size:22px}
+.thanks .actions{justify-content:center;margin-top:28px}

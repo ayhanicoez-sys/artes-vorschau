@@ -142,6 +142,11 @@
         + '<p>' + (sie ? 'Oder rufen Sie uns an' : 'Oder ruf uns an') + ': +41 79 950 65 85</p>';
       done.hidden = false;
       var first = done.querySelector('a'); if (first) first.focus();
+      /* after WhatsApp or the mail program has opened, show the thank-you page (its address counts as conversion in Google Ads) */
+      var typ = sie ? 'offerte' : (question ? 'frage' : 'probetraining');
+      done.querySelectorAll('a.btn').forEach(function(a){
+        a.addEventListener('click', function(){ setTimeout(function(){ window.location.href = 'danke.html?typ=' + typ; }, a.target === '_blank' ? 400 : 900); });
+      });
     });
   });
 
@@ -154,6 +159,11 @@
       document.body.classList.toggle('form-in-view', seen.size > 0);
     }, { rootMargin: '0px 0px -60px 0px' });
     leadForms.forEach(function(f){ fio.observe(f); });
+  }
+
+  /* thank-you page: formal wording after a group or company request */
+  if (/[?&]typ=offerte/.test(window.location.search)) {
+    document.querySelectorAll('.thanks__in').forEach(function(v){ v.hidden = v.getAttribute('data-variant') !== 'sie'; });
   }
 
   /* active link while scrolling (home page anchors only) */
