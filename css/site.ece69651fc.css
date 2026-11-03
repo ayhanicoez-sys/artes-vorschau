@@ -706,6 +706,9 @@ section{position:relative;scroll-margin-top:84px}
 .qform .field input,.qform .field select{min-height:46px;padding:10px 14px}
 .qform .consent{font-size:13px}
 .qform button[type="submit"]{width:100%;justify-content:center;margin-top:2px}
+.fpair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:340px){.fpair{grid-template-columns:minmax(0,1fr)}}
+form[data-lead] .btn[aria-busy="true"]{opacity:.75;cursor:progress;padding-right:32px;box-shadow:none;transform:none}
 .seg{position:relative;display:grid;grid-template-columns:1fr 1fr;margin:0;padding:4px;border:0;border-radius:999px;background:var(--mist);min-width:0}
 .seg input{position:absolute;opacity:0;pointer-events:none}
 .seg label{display:flex;align-items:center;justify-content:center;min-height:42px;border-radius:999px;font:600 15px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;color:var(--muted);cursor:pointer;transition:background-color .2s,color .2s}
