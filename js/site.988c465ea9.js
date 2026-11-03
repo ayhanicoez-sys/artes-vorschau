@@ -116,7 +116,7 @@
      send the same request via WhatsApp or e-mail with one click. The client id is public; the visitor token it
      yields can only submit forms, it cannot read any stored request. Nothing is stored in the browser. */
   var PHONE = '41799506585', MAIL = 'info@artes-sportakademie.ch';
-  var WIX = { api: 'https://www.wixapis.com', client: '239ce1bc-61f0-433e-a4f7-ba2759aacd8b', form: '5c314d31-6bbe-4d8c-8247-fba497f6225a' };
+  var WIX = { api: 'https://www.wixapis.com', client: '751651cb-1664-4379-8e78-3e949924ef51', form: '5c314d31-6bbe-4d8c-8247-fba497f6225a' };
   var WIX_FIELD = { first: 'vorname_bd61', last: 'nachname_7b00', mail: 'e_mail_adresse_28c4', tel: 'telefonnummer_b672', offer: 'unsere_angebote', msg: 'lange_antwort_097c', src: 'herkunft' };
   var WIX_OFFER = {
     'Wing Tzun / Selbstverteidigung': 'Wing Tzun', 'Boxen / Fitnessboxen': 'Boxen', 'BJJ / Brazilian Jiu Jitsu (ab 14 J.)': 'BJJ',
