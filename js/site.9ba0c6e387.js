@@ -101,6 +101,16 @@
     requestAnimationFrame(function(){ tf.scrollIntoView({ block: 'start', behavior: 'instant' }); });
   }
 
+  /* ad click IDs from the landing address travel along internal links, so a later request can still be
+     attributed to the ad without cookies (nothing is stored, no new identifier is created) */
+  var CLICK_IDS = (window.location.search.match(/[?&](gclid|gbraid|wbraid|gad_source)=[^&#]*/g) || []).map(function(x){ return x.slice(1); });
+  if (CLICK_IDS.length) document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href]'); if (!a || a.target === '_blank' || /^(mailto|tel|#)/.test(a.getAttribute('href'))) return;
+    var u = new URL(a.getAttribute('href'), window.location.href); if (u.origin !== window.location.origin) return;
+    CLICK_IDS.forEach(function(p){ var i = p.indexOf('='); if (!u.searchParams.has(p.slice(0, i))) u.searchParams.set(p.slice(0, i), decodeURIComponent(p.slice(i + 1))); });
+    a.setAttribute('href', u.pathname + u.search + u.hash);
+  }, true);
+
   /* trial forms: validate, then send the request via WhatsApp or e-mail (no data is stored on this website) */
   var PHONE = '41799506585', MAIL = 'info@artes-sportakademie.ch';
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -145,7 +155,8 @@
       /* after WhatsApp or the mail program has opened, show the thank-you page (its address counts as conversion in Google Ads) */
       var typ = sie ? 'offerte' : (question ? 'frage' : 'probetraining');
       done.querySelectorAll('a.btn').forEach(function(a){
-        a.addEventListener('click', function(){ setTimeout(function(){ window.location.href = 'danke.html?typ=' + typ; }, a.target === '_blank' ? 400 : 900); });
+        var keep = CLICK_IDS.map(function(x){ return '&' + x; }).join('');
+        a.addEventListener('click', function(){ setTimeout(function(){ window.location.href = 'danke.html?typ=' + typ + keep; }, a.target === '_blank' ? 400 : 900); });
       });
     });
   });
