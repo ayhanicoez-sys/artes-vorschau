@@ -2,6 +2,9 @@
   var root = document.documentElement;
   if (!root.lang) root.lang = 'de-CH';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* the map library lies next to this script on our own server (js/site….js -> vendor/…); in the page sources the script is inline */
+  var me = document.currentScript;
+  var VENDOR = (me && me.src ? me.src.replace(/js\/[^\/]*$/, '') : '') + 'vendor/leaflet-1.9.4/';
 
   /* every new page opens at the top; back/forward and links with an anchor keep their position */
   (function(){
@@ -267,6 +270,122 @@
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
     links.forEach(function(l){ var s = document.querySelector(l.getAttribute('href')); if (s) spy.observe(s); });
+  }
+
+  /* location map: it starts as the drawn map from our own server; map tiles from OpenStreetMap load only once someone moves or zooms it.
+     Phones: one finger keeps scrolling the page, a tap unlocks the map (then one finger moves it), two fingers always move and zoom it.
+     Computer: drag with the mouse; zoom with the buttons, a double click or Ctrl/⌘ + wheel (the plain wheel too, after a click into the map). */
+  var maps = [].slice.call(document.querySelectorAll('figure[data-map]'));
+  if (maps.length && 'IntersectionObserver' in window && window.Promise) {
+    var leaflet = null;
+    var loadLeaflet = function(){
+      if (!leaflet) leaflet = new Promise(function(ok, fail){
+        var css = document.createElement('link'), js = document.createElement('script'), n = 0;
+        var one = function(){ if (++n === 2) { if (window.L) ok(window.L); else fail(); } };
+        css.rel = 'stylesheet'; css.href = VENDOR + 'leaflet.css'; css.onload = one; css.onerror = fail;
+        js.src = VENDOR + 'leaflet.js'; js.onload = one; js.onerror = fail;
+        document.head.appendChild(css); document.head.appendChild(js);
+      });
+      return leaflet;
+    };
+    var mio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        mio.unobserve(en.target);
+        loadLeaflet().then(function(L){ liveMap(en.target, L); }).catch(function(){});   // on any failure the drawn map simply stays
+      });
+    }, { rootMargin: '400px 0px' });
+    maps.forEach(function(f){ mio.observe(f); });
+  }
+
+  function liveMap(fig, L){
+    var img = fig.querySelector(':scope > img'), ui = fig.querySelector('.mapui');
+    var done = ui.querySelector('.mapui__done'), homeBtn = ui.querySelector('.mapui__home'), hint = ui.querySelector('.mapui__hint');
+    var zin = ui.querySelector('[data-zoom="1"]'), zout = ui.querySelector('[data-zoom="-1"]');
+    var px = fig.getAttribute('data-px').split(',').map(Number);   // drawn map: left, top, width, height in zoom-16 pixels
+    var hintT = 0;
+    var showHint = function(text){
+      hint.textContent = text; hint.classList.add('is-on'); clearTimeout(hintT);
+      hintT = setTimeout(function(){ hint.classList.remove('is-on'); }, 1500);
+    };
+    var home = L.latLng(+fig.getAttribute('data-lat'), +fig.getAttribute('data-lng'));
+    var touchFirst = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    var el = document.createElement('div');
+    el.className = 'mapbox__map';
+    el.setAttribute('role', 'region');
+    el.setAttribute('aria-label', 'Karte rund um die Feldstrasse 36 in Rebstein. Mit den Pfeiltasten verschieben, mit Plus und Minus zoomen.');
+    fig.insertBefore(el, ui);
+    var map = L.map(el, { zoomControl: false, attributionControl: false, boxZoom: false, zoomSnap: 0, minZoom: 9, maxZoom: 19,
+      bounceAtZoomLimits: false, zoomAnimation: !reduce, fadeAnimation: !reduce, markerZoomAnimation: !reduce, inertia: !reduce });
+    var bounds = L.latLngBounds(map.unproject([px[0], px[1] + px[3]], 16), map.unproject([px[0] + px[2], px[1]], 16));
+    /* start view = exactly where the drawn map lies in the box (set in CSS), so nothing jumps when the movable map takes over */
+    var homeView = function(){
+      var f = fig.getBoundingClientRect(), r = img.getBoundingClientRect(), s = r.width / px[2];
+      return { center: map.unproject([px[0] + (f.left + f.width / 2 - r.left) / s, px[1] + (f.top + f.height / 2 - r.top) / s], 16),
+               zoom: 16 + Math.log(s) / Math.LN2 };
+    };
+    var start = homeView();
+    map.setView(start.center, start.zoom, { animate: false });
+    map.options.zoomSnap = 1;   // from now on zooming lands on whole levels, so the map tiles stay sharp
+    map.createPane('artesBase').style.zIndex = 150;   // below the tiles: the drawn map shows wherever no tile has arrived (yet)
+    var base = L.imageOverlay(img.currentSrc || img.src, bounds, { pane: 'artesBase' });
+    base.once('load', function(){ fig.classList.add('is-live'); ui.hidden = false; });
+    base.addTo(map);
+    L.marker(home, { interactive: false, keyboard: false, icon: L.divIcon({ className: 'mapbox__mk', html: fig.querySelector('.mapbox__pin').innerHTML,
+      iconSize: [180, 180], iconAnchor: [90, 90] }) }).addTo(map);
+
+    var tiles = null;
+    var wake = function(){
+      if (!tiles) tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+    };
+    map.on('dragstart zoomstart', wake);
+    el.addEventListener('keydown', function(e){ if (/^(Arrow|\+|-|=|_)/.test(e.key)) wake(); });
+
+    zin.addEventListener('click', function(){ map.setZoom(Math.round(map.getZoom()) + 1); });
+    zout.addEventListener('click', function(){ map.setZoom(Math.round(map.getZoom()) - 1); });
+    var moved = function(){
+      var v = homeView();
+      return map.latLngToContainerPoint(v.center).distanceTo(map.getSize().divideBy(2)) > 40 || Math.abs(map.getZoom() - v.zoom) > 0.25;
+    };
+    map.on('moveend zoomend', function(){
+      zin.disabled = map.getZoom() >= map.getMaxZoom(); zout.disabled = map.getZoom() <= map.getMinZoom();
+      var away = moved();
+      if (!away && document.activeElement === homeBtn) el.focus({ preventScroll: true });
+      homeBtn.hidden = !away;
+    });
+    homeBtn.addEventListener('click', function(){ var v = homeView(); map.options.zoomSnap = 0; map.setView(v.center, v.zoom); map.options.zoomSnap = 1; });
+
+    if (touchFirst) {
+      var unlocked = false;
+      var unlock = function(on){
+        if (unlocked === on) return;
+        unlocked = on; fig.classList.toggle('is-unlocked', on); done.hidden = !on; hint.classList.remove('is-on');
+        if (!on && document.activeElement === done) el.focus({ preventScroll: true });
+      };
+      fig.classList.add('is-touch');
+      /* locked: a single finger is left to the page (it scrolls), only two fingers reach the map */
+      fig.addEventListener('touchstart', function(e){ if (!unlocked && e.touches.length < 2 && el.contains(e.target)) e.stopPropagation(); }, { capture: true, passive: true });
+      /* someone tries to move the locked map with one finger: the page scrolls on, and a short hint says how it works */
+      fig.addEventListener('touchmove', function(e){
+        if (!unlocked && e.touches.length === 1 && el.contains(e.target)) showHint('Tippe auf die Karte, um sie zu bewegen');
+      }, { capture: true, passive: true });
+      el.addEventListener('click', function(){ unlock(true); });
+      done.addEventListener('click', function(){ unlock(false); });
+      document.addEventListener('touchstart', function(e){ if (unlocked && !fig.contains(e.target)) unlock(false); }, { passive: true });
+      fig.addEventListener('keydown', function(e){ if (e.key === 'Escape') unlock(false); });
+      new IntersectionObserver(function(en){ if (!en[0].isIntersecting) unlock(false); }).observe(fig);
+    } else {
+      /* the plain mouse wheel keeps scrolling the page, unless someone clicked into the map first */
+      var engaged = false;
+      var wheelText = /Mac|iP(hone|ad|od)/.test(navigator.platform || '') ? 'Zum Zoomen ⌘ + Scrollen verwenden' : 'Zum Zoomen Strg + Mausrad verwenden';
+      fig.addEventListener('wheel', function(e){
+        if (!el.contains(e.target) || e.ctrlKey || e.metaKey || engaged) return;   // Leaflet zooms
+        e.stopPropagation();
+        showHint(wheelText);
+      }, { capture: true, passive: true });
+      el.addEventListener('mousedown', function(){ engaged = true; hint.classList.remove('is-on'); });
+      fig.addEventListener('mouseleave', function(){ engaged = false; });
+    }
   }
 })();
 
