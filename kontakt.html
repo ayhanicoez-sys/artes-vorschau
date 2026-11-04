@@ -25,7 +25,7 @@
 <link rel="preload" href="fonts/f12.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/f17.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="css/site.ece69651fc.css">
+<link rel="stylesheet" href="css/site.954f815215.css">
 </head>
 <body>
 <!-- shared SVG: torn paper edge and brand icons -->
@@ -46,7 +46,14 @@
     <nav class="nav" id="nav" aria-label="Hauptmenü">
       <ul class="nav__list">
         <li><a class="nav__link" href="index.html">Startseite</a></li>
-        <li><a class="nav__link" href="ueber-uns.html">Über uns</a></li>
+        <li class="has-sub">
+          <a class="nav__link" href="ueber-uns.html">Über uns <span class="ms" aria-hidden="true">expand_more</span></a>
+          <ul class="sub">
+            <li><a href="ueber-uns.html#team">Team</a></li>
+            <li><a href="ueber-uns.html#standorte">Standorte</a></li>
+            <li><a href="ueber-uns.html#faq">Häufige Fragen</a></li>
+          </ul>
+        </li>
         <li class="has-sub">
           <a class="nav__link" href="kurse.html">Kurse <span class="ms" aria-hidden="true">expand_more</span></a>
           <ul class="sub">
@@ -59,8 +66,6 @@
             <li><a href="gruppenangebote.html">Gruppenangebote <small>auf Anfrage</small></a></li>
           </ul>
         </li>
-        <li><a class="nav__link" href="ueber-uns.html#team">Team</a></li>
-        <li><a class="nav__link" href="ueber-uns.html#standorte">Standorte</a></li>
         <li><a class="nav__link is-active" href="kontakt.html">Kontakt</a></li>
         <li><a class="nav__link" href="https://www.artes-sportakademie.ch/shop" target="_blank" rel="noopener">Shop</a></li>
       </ul>
@@ -89,6 +94,7 @@
         <span class="eyebrow rv">Kontakt</span>
         <h2 class="h2 rv d1">Teste <span class="hl">1 Woche gratis</span> Training</h2>
         <p class="kontakt__lead rv d2">Du möchtest dich zum Probetraining anmelden oder hast eine Frage zu unseren Angeboten? Schick uns eine Nachricht oder ruf uns an. Wir melden uns schnellstmöglich bei dir.</p>
+        <ol class="msteps rv d2" aria-label="So läuft dein erstes Training"><li><b>1</b>Anfragen</li><li><b>2</b>Termin erhalten</li><li><b>3</b>1 Woche gratis trainieren</li></ol>
         <p class="kontakt__lead rv d2">Zum Probetraining: Komm am besten schon in bequemer Sportkleidung. Trainiert wird barfuss auf Matten, Duschen gibt es bei uns keine.</p>
         <ul class="clist">
           <li class="rv"><span class="info__ic"><span class="ms" aria-hidden="true">location_on</span></span><div><strong>Adresse</strong><span>Feldstrasse 36, 9445 Rebstein (CH)</span><a href="https://www.google.com/maps/search/?api=1&amp;query=Feldstrasse+36,+9445+Rebstein" target="_blank" rel="noopener">Route planen</a></div></li>
@@ -137,27 +143,6 @@
         <a class="btn btn--line" href="ueber-uns.html#standorte">Alle 16 Standorte <span class="arr"><span class="ms" aria-hidden="true">arrow_forward</span></span></a>
       </div>
     </div>
-  </section>
-
-  <section class="steps3 steps3--white" aria-labelledby="steps-title">
-    <div class="wrap">
-      <div class="steps3__head"><span class="eyebrow rv">In 3 Schritten</span><h2 class="h2 rv d1" id="steps-title">So läuft dein<br>erstes Training</h2></div>
-      <ol class="steps3__list">
-        <li class="rv"><span class="steps3__no" aria-hidden="true">1</span><span class="ms" aria-hidden="true">call</span><div><h3>Anfragen</h3><p>Fülle das kurze Formular aus, schreib uns per WhatsApp oder ruf uns an.</p></div></li>
-        <li class="rv d1"><span class="steps3__no" aria-hidden="true">2</span><span class="ms" aria-hidden="true">schedule</span><div><h3>Termin erhalten</h3><p>Wir melden uns schnellstmöglich bei dir und finden gemeinsam einen passenden Termin.</p></div></li>
-        <li class="rv d2"><span class="steps3__no" aria-hidden="true">3</span><span class="ms" aria-hidden="true">sports_mma</span><div><h3>1 Woche gratis trainieren</h3><p>Komm in bequemer Sportkleidung nach Rebstein und trainiere mit. Vorkenntnisse brauchst du keine.</p></div></li>
-      </ol>
-      <p class="steps3__note rv"><span class="ms" aria-hidden="true">escalator_warning</span><span><strong>Für Eltern:</strong> Am Anfang dürft ihr gerne zuschauen. Danach trainieren die Kinder ohne Zuschauer, damit sie sich gut konzentrieren können. Ab und zu dürft ihr aber gerne reinschauen und die Fortschritte sehen.</span></p>
-      <div class="steps3__cta rv"><a class="btn" href="#probetraining">Jetzt Probetraining anfragen <span class="arr"><span class="ms" aria-hidden="true">arrow_forward</span></span></a></div>
-    </div>
-  </section>
-
-  <section class="fan-sec" aria-labelledby="fan-title">
-    <div class="wrap sec-head">
-      <h2 class="h2 rv" id="fan-title">Folge uns auf Instagram</h2>
-      <a class="rv d1" href="https://www.instagram.com/sifu_ayhan_icoez/" target="_blank" rel="noopener">@sifu_ayhan_icoez</a>
-    </div>
-    <div class="fan rv d1"><a href="https://www.instagram.com/sifu_ayhan_icoez/" target="_blank" rel="noopener" aria-label="Instagram öffnen" style="--r:-15deg;--y:34px"><img srcset="img/wt2-480.webp 480w, img/wt2.webp 1100w" sizes="(max-width: 560px) 100vw, 50vw" src="img/wt2.webp" alt="" width="1100" height="733" loading="lazy" decoding="async"></a><a href="https://www.instagram.com/sifu_ayhan_icoez/" target="_blank" rel="noopener" aria-label="Instagram öffnen" style="--r:-10deg;--y:12px"><img srcset="img/box1-480.webp 480w, img/box1.webp 800w" sizes="(max-width: 560px) 100vw, 50vw" src="img/box1.webp" alt="" width="800" height="1200" loading="lazy" decoding="async"></a><a href="https://www.instagram.com/sifu_ayhan_icoez/" target="_blank" rel="noopener" aria-label="Instagram öffnen" style="--r:-5deg;--y:2px"><img srcset="img/bjj2-480.webp 480w, img/bjj2.webp 1000w" sizes="(max-width: 560px) 100vw, 50vw" src="img/bjj2.webp" alt="" width="1000" height="563" loading="lazy" decoding="async"></a><a href="https://www.instagram.com/sifu_ayhan_icoez/" target="_blank" rel="noopener" aria-label="Instagram öffnen" style="--r:0deg;--y:0px"><img srcset="img/kids-spiel-480.webp 480w, img/kids-spiel.webp 1100w" sizes="(max-width: 560px) 100vw, 50vw" src="img/kids-spiel.webp" alt="" width="1100" height="1452" loading="lazy" decoding="async"></a><a href="https://www.instagram.com/sifu_ayhan_icoez/" target="_blank" rel="noopener" aria-label="Instagram öffnen" style="--r:5deg;--y:2px"><img srcset="img/ausbilder-480.webp 480w, img/ausbilder.webp 1024w" sizes="(max-width: 560px) 100vw, 50vw" src="img/ausbilder.webp" alt="" width="1024" height="662" loading="lazy" decoding="async"></a><a href="https://www.instagram.com/sifu_ayhan_icoez/" target="_blank" rel="noopener" aria-label="Instagram öffnen" style="--r:10deg;--y:12px"><img srcset="img/wt3-480.webp 480w, img/wt3.webp 1100w" sizes="(max-width: 560px) 100vw, 50vw" src="img/wt3.webp" alt="" width="1100" height="718" loading="lazy" decoding="async"></a><a href="https://www.instagram.com/sifu_ayhan_icoez/" target="_blank" rel="noopener" aria-label="Instagram öffnen" style="--r:15deg;--y:34px"><img srcset="img/bjj1-480.webp 480w, img/bjj1.webp 1000w" sizes="(max-width: 560px) 100vw, 50vw" src="img/bjj1.webp" alt="" width="1000" height="563" loading="lazy" decoding="async"></a></div>
   </section>
 </main>
 
@@ -222,6 +207,6 @@
   <a class="wa-float" href="https://api.whatsapp.com/send?phone=41799506585&amp;text=Hallo%20ARTES%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20gratis%20Probetraining." target="_blank" rel="noopener" aria-label="Probetraining per WhatsApp anfragen"><svg class="svgi" aria-hidden="true"><use href="#i-wa"/></svg><span>Probetraining per WhatsApp</span></a>
 </footer>
 
-<script src="js/site.ae6ff5d49f.js"></script>
+<script src="js/site.cf56abcc1c.js"></script>
 </body>
 </html>

@@ -254,6 +254,9 @@
     thanks.forEach(function(v){ v.hidden = v.getAttribute('data-variant') !== key; });
   }
 
+  /* about page: the list of all 16 locations starts folded on phones */
+  if (window.matchMedia && window.matchMedia('(max-width: 760px)').matches) document.querySelectorAll('details.locs').forEach(function(d){ d.open = false; });
+
   /* active link while scrolling (home page anchors only) */
   var links = [].slice.call(document.querySelectorAll('.nav__list > li > .nav__link[href^="#"]'));
   if ('IntersectionObserver' in window && links.length && !document.querySelector('.banner')) {
