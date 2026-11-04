@@ -1072,7 +1072,9 @@ body.nav-open .wa-float{display:none}
 .trustcta__quotes{display:grid;gap:18px}
 .strip--3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .strip--3 figure{aspect-ratio:4/3}
-.locs summary{list-style:none;display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;font:600 clamp(20px,1.9vw,25px)/1.2 var(--f-display);color:#fff;pointer-events:none}
+.locs summary{list-style:none;display:none;align-items:center;gap:8px;margin-bottom:24px;font:600 17px/1.2 var(--f-display);color:#fff}
+.net--slim .sec-head{padding-bottom:clamp(24px,3vw,36px)}
+.net--slim .net__foot{padding-top:0}
 .locs summary::-webkit-details-marker{display:none}
 .locs summary .ms{display:none;transition:transform .3s var(--ease)}
 .fan-sec--after-dark{padding-top:clamp(110px,11vw,160px)}
@@ -1086,7 +1088,7 @@ body.nav-open .wa-float{display:none}
 @media (max-width:760px){
   .strip--3{grid-template-columns:minmax(0,1fr)}
   .strip--3 figure{aspect-ratio:16/10}
-  .locs summary{pointer-events:auto;cursor:pointer;padding:10px 18px;border:1px solid var(--on-dark-line);border-radius:999px;font-size:17px}
+  .locs summary{display:inline-flex;cursor:pointer;padding:10px 18px;border:1px solid var(--on-dark-line);border-radius:999px}
   .locs summary .ms{display:inline-block}
   .locs[open] summary .ms{transform:rotate(180deg)}
 }
