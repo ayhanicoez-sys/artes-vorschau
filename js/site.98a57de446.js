@@ -58,12 +58,17 @@
     }, { passive: true });
   }
 
-  /* background videos: a light portrait cut on phones, only the poster for reduced motion or data saver, paused off-screen */
+  /* background videos: a light portrait cut on phones, only the poster for reduced motion or data saver, paused off-screen.
+     They start once the page has loaded, so text, pictures and fonts get the connection first (the still picture shows until then). */
   var small = window.matchMedia('(max-width: 700px)').matches;
   var saveData = navigator.connection && navigator.connection.saveData;
+  var afterLoad = function(fn){ if (document.readyState === 'complete') fn(); else window.addEventListener('load', fn); };
   ['heroVideo', 'bandVideo'].forEach(function(id){
     var v = document.getElementById(id); if (!v) return;
     if (reduce || saveData) { v.removeAttribute('autoplay'); return; }
+    afterLoad(function(){ startVideo(v); });
+  });
+  function startVideo(v){
     v.src = (small && v.dataset.srcSmall) || v.dataset.src;
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function(en){
@@ -73,7 +78,7 @@
         });
       }).observe(v);
     }
-  });
+  }
 
   /* FAQ: one open answer per list, and the clicked question stays in place */
   var faqs = [].slice.call(document.querySelectorAll('.acc details, .faq2 details'));

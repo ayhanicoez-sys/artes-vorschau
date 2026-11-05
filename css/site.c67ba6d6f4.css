@@ -1095,7 +1095,7 @@ body.nav-open .wa-float{display:none}
 /* ---------- about page (Nov 2026): team as cards, trust band, network, contact steps ---------- */
 .bios{grid-template-columns:repeat(2,minmax(0,1fr))}
 .bio{display:flex;flex-direction:column;padding:0;gap:0;overflow:hidden;background:#fff;border:0;box-shadow:0 18px 40px -30px rgba(0,0,0,.35)}
-.bio .bio__pic{aspect-ratio:16/10;border-radius:0;max-width:none}
+.bio .bio__pic{aspect-ratio:16/10;border-radius:0;max-width:none;width:100%}   /* full column, whatever picture size the browser loads */
 .bio .bio__pic img{object-position:50% 8%}
 .bio__text{padding:clamp(20px,2.4vw,30px)}
 .bio__text h3{font-size:clamp(24px,2.2vw,30px)}
