@@ -158,7 +158,7 @@
   }
   function origin(){
     var h = window.location.hostname, page = window.location.pathname.split('/').pop().replace(/\.html$/, '').replace(/^index$/, '') || 'startseite';
-    var where = /github\.io$/.test(h) ? 'Vorschau' : (/^(localhost|127\.)/.test(h) ? 'Test' : 'Homepage');
+    var where = /^(www\.)?artes-sportakademie\.ch$/.test(h) ? 'Homepage' : (/github\.io$/.test(h) ? 'Vorschau' : 'Test');
     var ad = CLICK_IDS.some(function(x){ return /^(gclid|gbraid|wbraid)=/.test(x); });
     return where + ' · ' + page + (ad ? ' · Google-Anzeige' : '');
   }
