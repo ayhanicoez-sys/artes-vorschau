@@ -732,6 +732,13 @@ section{position:relative;scroll-margin-top:84px}
 
 .hero--home .hero__in{grid-template-columns:minmax(0,1.35fr) minmax(320px,440px);align-items:center;padding-block:130px clamp(48px,6vw,80px)}
 .hero--home .h1{font-size:clamp(36px,5.2vw,70px);hyphens:manual}
+/* phones: «Kampfsport &» / «Selbstverteidigung» on two clean lines (the long word only breaks on very small screens),
+   and the line above the heading on one line */
+.hero--home .h1 .nw{white-space:nowrap}
+@media (max-width:359px){.hero--home .h1{font-size:32px}}
+@media (max-width:329px){.hero--home .h1 .nw{white-space:normal}}
+@media (max-width:560px){.hero--home .eyebrow{font-size:12px;letter-spacing:.12em}}
+@media (max-width:380px){.hero--home .eyebrow{font-size:11px;letter-spacing:.1em}}
 .hero--home .hero__sub{font-size:clamp(17px,1.6vw,20px);color:#fff;opacity:.9;margin-top:24px}
 .h1-loc{display:block;font-size:.42em;letter-spacing:.06em;margin-top:.3em;font-weight:600}
 
