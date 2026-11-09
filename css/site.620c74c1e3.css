@@ -425,6 +425,10 @@ section{position:relative;scroll-margin-top:84px}
   .nav__mobile-cta .btn{align-self:flex-start}
   .nav__mobile-cta span{color:var(--on-dark-soft);font-size:16px}
   .hdr__in{position:relative;z-index:51}
+  /* logo, call button and the close button stay above the open menu (the menu lies inside the header row) */
+  .hdr__in>.logo,.hdr__in>.hdr__call,.hdr__in>.burger{position:relative;z-index:50}
+  /* the blurred header background would make the fixed menu only as tall as the header after scrolling */
+  body.nav-open .hdr{-webkit-backdrop-filter:none;backdrop-filter:none}
   .hero__in{grid-template-columns:minmax(0,1fr)}
   .hours{max-width:520px}
   .split{grid-template-columns:minmax(0,1fr)}
